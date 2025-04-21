@@ -66,7 +66,24 @@
 
             // Simple example: get the blog post ID from URL query parameter ?post=1
             const urlParams = new URLSearchParams(window.location.search);
-            const postId = urlParams.get("post");
+            const postIdStrVal = urlParams.get("post");
+
+            if (urlParams.size < 1) {
+                contentDiv.textContent =
+                    "This is my temporary home (page) its not where I belong";
+                return;
+            } else if (urlParams.size > 1) {
+                console.log("urlParams.size > 1");
+                contentDiv.textContent = "?";
+                return;
+            }
+
+            if (!Number.isInteger(postIdStrVal)) {
+                console.log("post ID is not a number");
+                contentDiv.textContent = "?";
+                return;
+            }
+            const postId = parseInt(postIdStrVal);
 
             // Map postId to template IDs
             const templateIdMap = {
@@ -74,20 +91,23 @@
                 2: "blog-post-2",
             };
 
-            const templateId = templateIdMap[postId];
+            const blogPostTemplateName = templateIdMap[postId];
 
-            if (templateId) {
-                const template = document.getElementById(templateId);
-                if (template) {
-                    const clone = document.importNode(template.content, true);
-                    contentDiv.innerHTML = ""; // Clear existing content
-                    contentDiv.appendChild(clone);
-                } else {
-                    contentDiv.textContent = "Blog post not found.";
-                }
-            } else {
-                contentDiv.textContent = "No blog post selected.";
+            if (!blogPostTemplateName) {
+                contentDiv.textContent = "Blog post not found";
+                return;
             }
+
+            const template = document.getElementById(blogPostTemplateName);
+
+            if (!template) {
+                contentDiv.textContent = "Blog post not found.";
+                return;
+            }
+
+            const clone = document.importNode(template.content, true);
+            contentDiv.innerHTML = ""; // Clear existing content
+            contentDiv.appendChild(clone);
         });
     </script>
 </html>
