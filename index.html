@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
+            .topbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #333;
+                color: white;
+                padding: 14px 20px;
+                position: fixed;
+                top: 0;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .left-items {
+                /* Left side container */
+            }
+            .right-items {
+                display: flex;
+                gap: 20px; /* space between right items */
+            }
+            .topbar div {
+                cursor: default;
+            }
+        </style>
+    </head>
+    <body>
+        <template id="blog-post-1">
+            <article class="blog-post">
+                <h1 class="blog-title">First Blog Post</h1>
+                <p class="blog-content">Content of the first blog post.</p>
+            </article>
+        </template>
+
+        <template id="blog-post-2">
+            <article class="blog-post">
+                <h1 class="blog-title">Second Blog Post</h1>
+                <p class="blog-content">Content of the second blog post.</p>
+            </article>
+        </template>
+
+        <div class="topbar">
+            <div class="left-items">Me</div>
+            <div class="right-items">
+                <span>Blog</span>
+                <span>About</span>
+            </div>
+        </div>
+
+        <div id="content" style="margin-top: 60px; padding: 20px">
+            <!-- Blog content will be inserted here -->
+        </div>
+    </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const contentDiv = document.getElementById("content");
+
+            // Simple example: get the blog post ID from URL query parameter ?post=1
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get("post");
+
+            // Map postId to template IDs
+            const templateIdMap = {
+                1: "blog-post-1",
+                2: "blog-post-2",
+            };
+
+            const templateId = templateIdMap[postId];
+
+            if (templateId) {
+                const template = document.getElementById(templateId);
+                if (template) {
+                    const clone = document.importNode(template.content, true);
+                    contentDiv.innerHTML = ""; // Clear existing content
+                    contentDiv.appendChild(clone);
+                } else {
+                    contentDiv.textContent = "Blog post not found.";
+                }
+            } else {
+                contentDiv.textContent = "No blog post selected.";
+            }
+        });
+    </script>
+</html>
