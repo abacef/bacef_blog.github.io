@@ -52,38 +52,52 @@
             <div class="left-items">Me</div>
             <div class="right-items">
                 <span>Blog</span>
-                <span>About</span>
+                <span id="homepage-link">About</span>
             </div>
         </div>
 
         <div id="content" style="margin-top: 60px; padding: 20px">
-            <!-- Blog content will be inserted here -->
+            <!-- content will be inserted here -->
         </div>
     </body>
     <script>
+        function load_homepage() {
+            const contentDiv = document.getElementById("content");
+            contentDiv.textContent =
+                "This is my temporary home (page) its not where I belong";
+        }
+
+        function redirectToHomepage() {
+            window.location.href = window.location.pathname;
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
+            const homepageClickable = document.getElementById("homepage-link");
+            homepageClickable.addEventListener("click", redirectToHomepage);
+
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.size < 1) {
+                load_homepage();
+                return;
+            }
+
             const contentDiv = document.getElementById("content");
 
-            // Simple example: get the blog post ID from URL query parameter ?post=1
-            const urlParams = new URLSearchParams(window.location.search);
             const postIdStrVal = urlParams.get("post");
 
-            if (urlParams.size < 1) {
-                contentDiv.textContent =
-                    "This is my temporary home (page) its not where I belong";
-                return;
-            } else if (urlParams.size > 1) {
+            if (urlParams.size > 1) {
                 console.log("urlParams.size > 1");
                 contentDiv.textContent = "?";
                 return;
             }
 
-            if (!Number.isInteger(postIdStrVal)) {
+            const postId = Number(postIdStrVal);
+            if (postId === NaN) {
+                console.log(post_id);
                 console.log("post ID is not a number");
                 contentDiv.textContent = "?";
                 return;
             }
-            const postId = parseInt(postIdStrVal);
 
             // Map postId to template IDs
             const templateIdMap = {
