@@ -49,7 +49,7 @@
         </template>
 
         <div class="topbar">
-            <div class="left-items">Me</div>
+            <div class="left-items">Mark Nash</div>
             <div class="right-items">
                 <span>Blog</span>
                 <span id="homepage-link">About</span>
@@ -71,19 +71,32 @@
             window.location.href = window.location.pathname;
         }
 
+        function urlIsHomepage() {
+            return window.location.href.endsWith(window.location.pathname);
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
             const homepageClickable = document.getElementById("homepage-link");
             homepageClickable.addEventListener("click", redirectToHomepage);
 
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.size < 1) {
-                load_homepage();
+                if (urlIsHomepage()) {
+                    console.log("url is homepage");
+                    load_homepage();
+                } else {
+                    console.log("url is not homepage, redirecting to homepage");
+                    redirectToHomepage();
+                }
                 return;
             }
 
             const contentDiv = document.getElementById("content");
 
             const postIdStrVal = urlParams.get("post");
+            if (postIdStrVal === null) {
+                redirectToHomepage();
+            }
 
             if (urlParams.size > 1) {
                 console.log("urlParams.size > 1");
