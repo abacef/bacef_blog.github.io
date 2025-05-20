@@ -22,7 +22,7 @@ jobs:
       - name: Copy html files
         run: |
           rm -r ./target-repo/*
-          cp -r ./*.html ./target-repo/
+          cp -r ./*.html ./*.js ./target-repo/
 
 
       - name: install pandoc
@@ -35,6 +35,12 @@ jobs:
           mkdir -p ./target-repo/tech_blog
           for file in $(find ./tech_blog/ -name "*.md"); do
             out="./target-repo/tech_blog/$(basename "${file%.md}.html")"
+            pandoc "$file" -o "$out"
+          done
+
+          mkdir -p ./target-repo/bike_blog
+          for file in $(find ./bike_blog/ -name "*.md"); do
+            out="./target-repo/bike_blog/$(basename "${file%.md}.html")"
             pandoc "$file" -o "$out"
           done
   
