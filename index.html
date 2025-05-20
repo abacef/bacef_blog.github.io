@@ -75,6 +75,7 @@
 
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.size < 1) {
+                console.log("urlParams.size < 1");
                 redirectToHomepage()
                 return;
             }
@@ -113,7 +114,19 @@
                 return;
             }
 
-            contentDiv.innerHTML = postName
+            fetch("/posts/" + postIdStrVal + ".html")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    contentDiv.innerHTML = html
+                })
+                .catch(error => {
+                    console.error('Error loading HTML:', error);
+                });
         });
     </script>
 </html>
