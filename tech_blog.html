@@ -25,7 +25,7 @@
             document.getElementById("date-published").innerHTML = blogPost[2]
             populateElementWithFile('post-content', `/tech_blog/${blogPost[0]}.html`)
         } else {
-            document.getElementById('blog-post-or-list').innerHTML = `<h1>Software Engineering Blog Posts</h1><br>${blogPostListHtml(blogs_map, "tech_blog")}`;
+            document.getElementById('blog-post-or-list').innerHTML = `<h1>Software Engineering Blog Posts</h1>${blogPostListHtml(blogs_map, "tech_blog")}`;
         }
     </script>
 </body>

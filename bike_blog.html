@@ -25,7 +25,7 @@
             document.getElementById("date-published").innerHTML = blogPost[2]
             populateElementWithFile('post-content', `/bike_blog/${blogPost[0]}.html`)
         } else {
-            document.getElementById('blog-post-or-list').innerHTML = `<h1>Road Biking Blog Posts</h1><br>${blogPostListHtml(bikeBlogs, "bike_blog")}`;
+            document.getElementById('blog-post-or-list').innerHTML = `<h1>Road Biking Blog Posts</h1>${blogPostListHtml(bikeBlogs, "bike_blog")}`;
         }
     </script>
 </body>
