@@ -1,60 +1,66 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
 
-<style>
-    body {
-        margin: 0;
-    }
-    .topbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #333;
-        color: white;
-        padding: 14px 20px;
-        position: fixed;
-        top: 0;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    .right-items {
-        display: flex;
-        gap: 20px; /* space between right items */
-    }
-    .topbar a {
-        cursor: pointer;
-        color: inherit;
-        text-decoration: none;
-    }
-</style>
+    <style>
+        body {
+            margin: 0;
+        }
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 14px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .right-items {
+            display: flex;
+            gap: 20px; /* space between right items */
+        }
+        .topbar a {
+            cursor: pointer;
+            color: inherit;
+            text-decoration: none;
+        }
+    </style>
 
 
-<div class="topbar">
-    <div class="left-items">
-        <a href="/"><span>Mark Nash</span></a>
+    <div class="topbar">
+        <div class="left-items">
+            <a href="/"><span>Mark Nash</span></a>
+        </div>
+        <div class="right-items">
+            <a href="/blog.html"><span>Blog</span></a>
+            <a href="/"><span>About</span></a>
+        </div>
     </div>
-    <div class="right-items">
-        <a href="/blog.html"><span>Blog</span></a>
-        <a href="/"><span>About</span></a>
+
+    <!-- This div will only be visible when on / -->
+    <div id="content" style="margin-top: 50px; padding: 20px; display: none;">
+        <h1>Mark Nash</h1>
+
+        I am a Software Engineer, minimalist, and road biker
+
+        <ul>
+            <li><a href="https://linkedin.com/in/markoce">Linkedin</a></li>
+            <li><a href="https://github.com/abacef">Github</a> (I dont usually make my projects public but when I do, they are ones I am proud of)</li>
+            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="https://www.strava.com/athletes/97404982">Strava</a> (sometimes I make fun rides publically viewable)</li>
+        </ul>
+
     </div>
-</div>
 
-<!-- This div will only be visible when on / -->
-<div id="content" style="margin-top: 50px; padding: 20px; display: none;">
-    <h1>Mark Nash</h1>
+    <script>
+        if (window.location.pathname === "/") {
+            console.log("making content visible?");
+            document.getElementById("content").style.display = "block";
+        }
+    </script>
 
-    I am a Software Engineer, minimalist, and road biker
-
-    <ul>
-        <li><a href="https://linkedin.com/in/markoce">Linkedin</a></li>
-        <li><a href="https://github.com/abacef">Github</a> (I dont usually make my projects public but when I do, they are ones I am proud of)</li>
-        <li><a href="/blog.html">Blog</a></li>
-        <li><a href="https://www.strava.com/athletes/97404982">Strava</a> (sometimes I make fun rides publically viewable)</li>
-    </ul>
-
-</div>
-
-<script>
-    if (window.location.pathname === "/") {
-        console.log("making content visible?");
-        document.getElementById("content").style.display = "block";
-    }
-</script>
+</body>
