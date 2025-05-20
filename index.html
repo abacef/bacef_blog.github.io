@@ -7,7 +7,6 @@
         <style>
             body {
                 margin: 0;
-                font-family: Arial, sans-serif;
             }
             .topbar {
                 display: flex;
@@ -28,31 +27,19 @@
                 display: flex;
                 gap: 20px; /* space between right items */
             }
-            .topbar div {
-                cursor: default;
+            .topbar a {
+                cursor: pointer;
+                color: inherit;
+                text-decoration: none;
             }
         </style>
     </head>
     <body>
-        <template id="blog-post-1">
-            <article class="blog-post">
-                <h1 class="blog-title">First Blog Post</h1>
-                <p class="blog-content">Content of the first blog post.</p>
-            </article>
-        </template>
-
-        <template id="blog-post-2">
-            <article class="blog-post">
-                <h1 class="blog-title">Second Blog Post</h1>
-                <p class="blog-content">Content of the second blog post.</p>
-            </article>
-        </template>
-
         <div class="topbar">
             <div class="left-items">Mark Nash</div>
             <div class="right-items">
                 <span>Blog</span>
-                <span id="homepage-link">About</span>
+                <a id="homepage-link"><span>About</span></a>
             </div>
         </div>
 
@@ -68,26 +55,27 @@
         }
 
         function redirectToHomepage() {
-            window.location.href = window.location.pathname;
+            if (urlIsHomepage()) {
+                console.log("url is homepage");
+                load_homepage();
+            } else {
+                console.log("url is not homepage, redirecting to homepage");
+                window.location.href = window.location.pathname;
+            }
         }
 
         function urlIsHomepage() {
             return window.location.href.endsWith(window.location.pathname);
         }
 
+        const homepageClickable = document.getElementById("homepage-link");
+        homepageClickable.addEventListener("click", redirectToHomepage);
+
         document.addEventListener("DOMContentLoaded", function () {
-            const homepageClickable = document.getElementById("homepage-link");
-            homepageClickable.addEventListener("click", redirectToHomepage);
 
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.size < 1) {
-                if (urlIsHomepage()) {
-                    console.log("url is homepage");
-                    load_homepage();
-                } else {
-                    console.log("url is not homepage, redirecting to homepage");
-                    redirectToHomepage();
-                }
+                redirectToHomepage()
                 return;
             }
 
@@ -100,7 +88,7 @@
 
             if (urlParams.size > 1) {
                 console.log("urlParams.size > 1");
-                contentDiv.textContent = "?";
+                contentDiv.textContent = "heh?";
                 return;
             }
 
@@ -108,33 +96,24 @@
             if (postId === NaN) {
                 console.log(post_id);
                 console.log("post ID is not a number");
-                contentDiv.textContent = "?";
+                contentDiv.textContent = "heh?";
                 return;
             }
 
-            // Map postId to template IDs
-            const templateIdMap = {
+            // post ID to name
+            const posts = {
                 1: "blog-post-1",
                 2: "blog-post-2",
             };
 
-            const blogPostTemplateName = templateIdMap[postId];
+            const postName = posts[postId];
 
-            if (!blogPostTemplateName) {
+            if (!postName) {
                 contentDiv.textContent = "Blog post not found";
                 return;
             }
 
-            const template = document.getElementById(blogPostTemplateName);
-
-            if (!template) {
-                contentDiv.textContent = "Blog post not found.";
-                return;
-            }
-
-            const clone = document.importNode(template.content, true);
-            contentDiv.innerHTML = ""; // Clear existing content
-            contentDiv.appendChild(clone);
+            contentDiv.innerHTML = postName
         });
     </script>
 </html>
