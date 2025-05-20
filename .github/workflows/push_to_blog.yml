@@ -32,10 +32,9 @@ jobs:
 
       - name: Convert all Markdown files to HTML
         run: |
-          mkdir -p ./target-repo/blog
-          for file in $(find ./blog/ -name "*.md"); do
-            echo "converting $file to html"
-            out="./target-repo/blog/$(basename "${file%.md}.html")"
+          mkdir -p ./target-repo/tech_blog
+          for file in $(find ./tech_blog/ -name "*.md"); do
+            out="./target-repo/tech_blog/$(basename "${file%.md}.html")"
             pandoc "$file" -o "$out"
           done
   

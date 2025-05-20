@@ -1,0 +1,31 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<script src="blog_common.js"></script>
+<body>
+    <div id="skeleton"></div>
+
+    <div id="blog-post-or-list" style="margin-top: 30px; padding: 20px">
+        <h1 id="titl"></h1>
+        <i><div id="date-published"></div></i>
+        <div id="post-content"></div>
+    </div>
+
+    <script>
+        const bikeBlogs = [
+            [2, "Gator Hardshells are good actually", "20 May 2025"],
+            [1, "Why I dont ride in the dark", "20 May 2025"]
+        ]
+
+        populateElementWithFile("skeleton", "index.html")
+
+        const blogPost = findBlogPost(bikeBlogs)
+        if (blogPost) {
+            document.getElementById("titl").innerHTML = blogPost[1]
+            document.getElementById("date-published").innerHTML = blogPost[2]
+            populateElementWithFile('post-content', `/bike_blog/${blogPost[0]}.html`)
+        } else {
+            document.getElementById('blog-post-or-list').innerHTML = `<h1>Road Biking Blog Posts</h1><br>${blogPostListHtml(bikeBlogs, "bike_blog")}`;
+        }
+    </script>
+</body>

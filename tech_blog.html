@@ -1,0 +1,31 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<script src="blog_common.js"></script>
+<body>
+    <div id="skeleton"></div>
+
+    <div id="blog-post-or-list" style="margin-top: 30px; padding: 20px">
+        <h1 id="titl"></h1>
+        <i><div id="date-published"></div></i>
+        <div id="post-content"></div>
+    </div>
+
+    <script>
+        const blogs_map = [
+            [2, "Generate your database schema from code", "11 May 2025"],
+            [1, "Generate your API objects", "11 May 2025"]
+        ]
+
+        populateElementWithFile("skeleton", "index.html")
+
+        const blogPost = findBlogPost(blogs_map)
+        if (blogPost) {
+            document.getElementById("titl").innerHTML = blogPost[1]
+            document.getElementById("date-published").innerHTML = blogPost[2]
+            populateElementWithFile('post-content', `/tech_blog/${blogPost[0]}.html`)
+        } else {
+            document.getElementById('blog-post-or-list').innerHTML = `<h1>Software Engineering Blog Posts</h1><br>${blogPostListHtml(blogs_map, "tech_blog")}`;
+        }
+    </script>
+</body>
