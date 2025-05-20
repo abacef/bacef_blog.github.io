@@ -25,13 +25,10 @@ jobs:
           cp -r ./*.html ./target-repo/
 
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: install pandoc
+        uses: pandoc/actions@v1
         with:
-          node-version: '20'
-
-      - name: Install markdown-to-html-cli
-        run: npm install -g markdown-to-html-cli
+          version: 'latest' # or specify a version, e.g., '3.2'
 
       - name: Convert all Markdown files to HTML
         run: |
@@ -39,7 +36,7 @@ jobs:
           for file in $(find ./blog/ -name "*.md"); do
             echo "converting $file to html"
             out="./target-repo/blog/$(basename "${file%.md}.html")"
-            markdown-to-html --source "$file" --output "$out"
+            pandoc "$file" -o "$out"
           done
   
 
