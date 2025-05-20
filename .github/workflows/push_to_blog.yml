@@ -37,6 +37,7 @@ jobs:
         run: |
           mkdir -p ./target-repo/blog
           for file in $(find . -name "./blog/*.md"); do
+            echo "converting $file to html"
             out="./target-repo/blog/$(basename "${file%.md}.html")"
             markdown-to-html --source "$file" --output "$out"
           done
