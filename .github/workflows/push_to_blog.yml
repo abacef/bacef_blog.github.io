@@ -21,7 +21,6 @@ jobs:
 
       - name: Copy files
         run: |
-          ls -al
           rm -r ./target-repo/*
           cp ./* ./target-repo/
           cp -r blog ./target-repo/
