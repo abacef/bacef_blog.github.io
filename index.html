@@ -1,132 +1,63 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <style>
-            body {
-                margin: 0;
-            }
-            .topbar {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                background-color: #333;
-                color: white;
-                padding: 14px 20px;
-                position: fixed;
-                top: 0;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .left-items {
-                /* Left side container */
-            }
-            .right-items {
-                display: flex;
-                gap: 20px; /* space between right items */
-            }
-            .topbar a {
-                cursor: pointer;
-                color: inherit;
-                text-decoration: none;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="topbar">
-            <div class="left-items">Mark Nash</div>
-            <div class="right-items">
-                <span>Blog</span>
-                <a id="homepage-link"><span>About</span></a>
-            </div>
-        </div>
+<style>
+    body {
+        margin: 0;
+    }
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        color: white;
+        padding: 14px 20px;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .left-items {
+        /* Left side container */
+    }
+    .right-items {
+        display: flex;
+        gap: 20px; /* space between right items */
+    }
+    .topbar a {
+        cursor: pointer;
+        color: inherit;
+        text-decoration: none;
+    }
+</style>
 
-        <div id="content" style="margin-top: 60px; padding: 20px">
-            <!-- content will be inserted here -->
-        </div>
-    </body>
-    <script>
-        function load_homepage() {
-            const contentDiv = document.getElementById("content");
-            contentDiv.textContent =
-                "This is my temporary home (page) its not where I belong";
-        }
 
-        function redirectToHomepage() {
-            if (urlIsHomepage()) {
-                console.log("url is homepage");
-                load_homepage();
-            } else {
-                console.log("url is not homepage, redirecting to homepage");
-                window.location.href = window.location.pathname;
-            }
-        }
+<div class="topbar">
+    <div class="left-items">
+        <a href="/"><span>Mark Nash</span></a>
+    </div>
+    <div class="right-items">
+        <a href="/blog.html"><span>Blog</span></a>
+        <a href="/"><span>About</span></a>
+    </div>
+</div>
 
-        function urlIsHomepage() {
-            return window.location.href.endsWith(window.location.pathname);
-        }
+<!-- This div will only be visible when on / -->
+<div id="content" style="margin-top: 50px; padding: 20px; display: none;">
+    <h1>Mark Nash</h1>
 
-        const homepageClickable = document.getElementById("homepage-link");
-        homepageClickable.addEventListener("click", redirectToHomepage);
+    I am a Software Engineer, minimalist, and road biker
 
-        document.addEventListener("DOMContentLoaded", function () {
+    <ul>
+        <li><a href="https://linkedin.com/in/markoce">Linkedin</a></li>
+        <li><a href="https://github.com/abacef">Github</a> (I dont usually make my projects public but when I do, they are ones I am proud of)</li>
+        <li><a href="/blog.html">Blog</a></li>
+        <li><a href="https://www.strava.com/athletes/97404982">Strava</a> (sometimes I make fun rides publically viewable)</li>
+    </ul>
 
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.size < 1) {
-                console.log("urlParams.size < 1");
-                redirectToHomepage()
-                return;
-            }
+</div>
 
-            const contentDiv = document.getElementById("content");
-
-            const postIdStrVal = urlParams.get("post");
-            if (postIdStrVal === null) {
-                redirectToHomepage();
-            }
-
-            if (urlParams.size > 1) {
-                console.log("urlParams.size > 1");
-                contentDiv.textContent = "heh?";
-                return;
-            }
-
-            const postId = Number(postIdStrVal);
-            if (postId === NaN) {
-                console.log(post_id);
-                console.log("post ID is not a number");
-                contentDiv.textContent = "heh?";
-                return;
-            }
-
-            // post ID to name
-            const posts = {
-                1: "blog-post-1",
-                2: "blog-post-2",
-            };
-
-            const postName = posts[postId];
-
-            if (!postName) {
-                contentDiv.textContent = "Blog post not found";
-                return;
-            }
-
-            fetch("/posts/" + postIdStrVal + ".html")
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.text();
-                })
-                .then(html => {
-                    contentDiv.innerHTML = html
-                })
-                .catch(error => {
-                    console.error('Error loading HTML:', error);
-                });
-        });
-    </script>
-</html>
+<script>
+    if (window.location.pathname === "/") {
+        console.log("making content visible?");
+        document.getElementById("content").style.display = "block";
+    }
+</script>

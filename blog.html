@@ -1,0 +1,16 @@
+<div id="skeleton"></div>
+
+<div id="customContent" style="margin-top: 50px; padding: 20px">
+    This is my blog
+</div>
+
+<script>
+fetch('index.html')
+    .then(response => response.text())
+    .then(html => {
+        document.getElementById('skeleton').innerHTML = html;
+    })
+    .catch(err => {
+        console.warn('Failed to load HTML:', err);
+    });
+</script>
