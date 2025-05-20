@@ -11,6 +11,11 @@
     </div>
 
     <script>
+        const blogs_map = [
+            [2, "Generate your database schema from code", "11 May 2025"],
+            [1, "Generate your API objects", "11 May 2025"]
+        ]
+
         function populateElementWithFile(elementName, fileName) {
             fetch(fileName)
                 .then(response => {
@@ -27,29 +32,25 @@
                 });
         }
 
-        populateElementWithFile("skeleton", "index.html")
-
-
-        const blogs_map = [
-            [2, "Generate your database schema from code", "11 May 2025"],
-            [1, "Generate your API objects", "11 May 2025"]
-        ]
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const postIdStrVal = urlParams.get("post")
-        const postId = Number(postIdStrVal);
-        var title, datePosted
-        for (const entry of blogs_map) {
-            if (entry[0] === postId) {
-                title = entry[1]
-                datePosted = entry[2]
-                break;
+        function findBlogPost() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const postIdStrVal = urlParams.get("post")
+            const postId = Number(postIdStrVal);
+            var title, datePosted
+            for (const entry of blogs_map) {
+                if (entry[0] === postId) {
+                    return entry
+                }
             }
         }
-        if (urlParams.size == 1 && title && datePosted) {
-            document.getElementById("titl").innerHTML = title
-            document.getElementById("date-published").innerHTML = datePosted
-            populateElementWithFile('post-content', `/blog/${postId}.html`)
+
+        populateElementWithFile("skeleton", "index.html")
+
+        const blogPost = findBlogPost()
+        if (blogPost) {
+            document.getElementById("titl").innerHTML = blogPost[1]
+            document.getElementById("date-published").innerHTML = blogPost[2]
+            populateElementWithFile('post-content', `/blog/${blogPost[0]}.html`)
         } else {
             blog_list = ""
 
