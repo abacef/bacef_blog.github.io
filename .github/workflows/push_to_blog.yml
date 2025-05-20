@@ -26,9 +26,9 @@ jobs:
 
 
       - name: install pandoc
-        uses: pandoc/actions@v1
+        uses: pandoc/actions/setup@v1
         with:
-          version: 'latest' # or specify a version, e.g., '3.2'
+          version: '3.5'
 
       - name: Convert all Markdown files to HTML
         run: |
