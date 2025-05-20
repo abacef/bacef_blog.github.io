@@ -22,8 +22,7 @@ jobs:
       - name: Copy files
         run: |
           rm -r ./target-repo/*
-          cp ./* ./target-repo/
-          cp -r blog ./target-repo/
+          cp -r ./*.html ./blog ./target-repo/
 
       - name: Commit and push changes
         run: |
