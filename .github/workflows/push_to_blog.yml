@@ -19,10 +19,16 @@ jobs:
           token: ${{ secrets.PUSH_TO_ABACEF_GITHUB_IO }}
           path: target-repo
 
-      - name: Copy files
+      - name: Copy html files
         run: |
           rm -r ./target-repo/*
-          cp -r ./*.html ./blog ./target-repo/
+          cp -r ./*.html ./target-repo/
+
+      - name: Convert Markdown to HTML
+        uses: natescherer/markdown-to-html-with-github-style-action@v1
+        with:
+          path: blog/*.md
+          outputpath: ./target-repo/blog
 
       - name: Commit and push changes
         run: |
