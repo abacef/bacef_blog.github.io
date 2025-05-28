@@ -24,6 +24,9 @@ jobs:
           rm -r ./target-repo/*
           cp -r ./src/*.html ./src/*.js ./target-repo/
 
+          mkdir ./target-repo/assets
+          cp -r ./assets/* ./target-repo/assets
+
 
       - name: install pandoc
         uses: pandoc/actions/setup@v1
