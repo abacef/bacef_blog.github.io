@@ -38,13 +38,13 @@ jobs:
           mkdir -p ./target-repo/tech_blog
           for file in $(find ./src/tech_blog/ -name "*.md"); do
             out="./target-repo/tech_blog/$(basename "${file%.md}.html")"
-            pandoc "$file" -s -o "$out"
+            pandoc "$file" -o "$out"
           done
 
           mkdir -p ./target-repo/bike_blog
           for file in $(find ./src/bike_blog/ -name "*.md"); do
             out="./target-repo/bike_blog/$(basename "${file%.md}.html")"
-            pandoc "$file" -s -o "$out"
+            pandoc "$file" -o "$out"
           done
   
 
